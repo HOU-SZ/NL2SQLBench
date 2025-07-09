@@ -25,7 +25,7 @@ class BenchmarkingAgent():
                 except:
                     print(file)
                     continue
-                with open(os.path.join(self.result_directory, file), 'r') as f:
+                with open(os.path.join(self.result_directory, file), 'r', encoding="utf-8") as f:
                     exec_history = json.load(f)
                     for step in exec_history:
                         if step["node_type"] == "schema_extraction":
@@ -53,7 +53,7 @@ class BenchmarkingAgent():
                 except:
                     print(file)
                     continue
-                with open(os.path.join(self.result_directory, file), 'r') as f:
+                with open(os.path.join(self.result_directory, file), 'r', encoding="utf-8") as f:
                     exec_history = json.load(f)
                     for step in exec_history:
                         if step["node_type"] == "schema_extraction":
@@ -322,7 +322,7 @@ class BenchmarkingAgent():
                 except:
                     print(file)
                     continue
-                with open(os.path.join(self.result_directory, file), 'r') as f:
+                with open(os.path.join(self.result_directory, file), 'r', encoding="utf-8") as f:
                     exec_history = json.load(f)
                     for step in exec_history:
                         if "node_type" in step and step["node_type"] == "schema_extraction":
@@ -726,14 +726,14 @@ class BenchmarkingAgent():
 
 def main():
     schema = "original"  # "original" or "gold"
-    method = "e"  # "din", "mac", "ta", "c3", "chess_v1", "chess_v2", "gsr", "rsl", "e", "opensearch"
+    method = "ta"  # "din", "mac", "ta", "c3", "chess_v1", "chess_v2", "gsr", "rsl", "e", "opensearch"
     if schema == "original":
         result_directory = f"./results/{method}_on_bird_dev_deepseek/bird_dev_deepseek_v3"
         output_file = f"./results/{method}_on_bird_dev_deepseek/bird_dev_deepseek_v3/~analysis.json"
     else:
         result_directory = f"./results/{method}_on_bird_dev_deepseek/bird_dev_deepseek_v3_gold"
         output_file = f"./results/{method}_on_bird_dev_deepseek/bird_dev_deepseek_v3_gold/~analysis.json"
-    dataset_directory = "./data/dev/dev_merge.json"
+    dataset_directory = "./data/bird/dev/dev.json"
 
     benchmarking_agent = BenchmarkingAgent(
         result_directory, dataset_directory, output_file)
@@ -742,10 +742,10 @@ def main():
     candidate_generation_results_analysis_results = benchmarking_agent.candidate_generation_results_analysis()
     candidate_generation_incorrect_analysis_results = benchmarking_agent.candidate_generation_incorrect_analysis()
     candidate_generation_error_analysis_results = benchmarking_agent.candidate_generation_error_analysis()
-    revision_results_analysis_results = benchmarking_agent.revision_results_analysis()
-    revision_incorrect_analysis_results = benchmarking_agent.revision_incorrect_analysis()
-    revision_error_analysis_results = benchmarking_agent.revision_error_analysis()
-    revision_effectiveness_analysis_results = benchmarking_agent.revision_effectiveness_analysis()
+    # revision_results_analysis_results = benchmarking_agent.revision_results_analysis()
+    # revision_incorrect_analysis_results = benchmarking_agent.revision_incorrect_analysis()
+    # revision_error_analysis_results = benchmarking_agent.revision_error_analysis()
+    # revision_effectiveness_analysis_results = benchmarking_agent.revision_effectiveness_analysis()
     token_and_time_cost_analysis_results = benchmarking_agent.token_and_time_cost_analysis()
     with open(output_file, 'w') as f:
         json.dump({
@@ -754,10 +754,10 @@ def main():
             "candidate_generation_results_analysis_results": candidate_generation_results_analysis_results,
             "candidate_generation_incorrect_analysis_results": candidate_generation_incorrect_analysis_results,
             "candidate_generation_error_analysis_results": candidate_generation_error_analysis_results,
-            "revision_results_analysis_results": revision_results_analysis_results,
-            "revision_incorrect_analysis_results": revision_incorrect_analysis_results,
-            "revision_error_analysis_results": revision_error_analysis_results,
-            "revision_effectiveness_analysis_results": revision_effectiveness_analysis_results,
+            # "revision_results_analysis_results": revision_results_analysis_results,
+            # "revision_incorrect_analysis_results": revision_incorrect_analysis_results,
+            # "revision_error_analysis_results": revision_error_analysis_results,
+            # "revision_effectiveness_analysis_results": revision_effectiveness_analysis_results,
             "token_and_time_cost_analysis_results": token_and_time_cost_analysis_results
         }, f, indent=4)
 

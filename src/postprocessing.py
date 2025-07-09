@@ -195,7 +195,7 @@ class PostprocessingAgent():
 
 
 def main():
-    input_result_directory = "./results/mac_on_bird_dev_deepseek/bird_dev_deepseek_v3"
+    input_result_directory = "./results/e_on_bird_dev_deepseek/bird_dev_deepseek_v3"
     dataset_directory = ""
     output_result_directory = ""
     real_schema_directory = "./results/chess_on_dev/"
@@ -212,8 +212,8 @@ def main():
     else:
         postprocessing_agent = PostprocessingAgent(
             input_result_directory, dataset_directory, output_result_directory, real_schema_directory, multiple_candidate)
-        # postprocessing_agent.preprocess()
-        # postprocessing_agent.evaluate()
+        postprocessing_agent.preprocess()
+        postprocessing_agent.evaluate()
         postprocessing_agent.statistics()
 
 
